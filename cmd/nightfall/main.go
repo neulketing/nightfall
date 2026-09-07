@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+	"nightfall/integration"
 )
 
 var version = "1.0.0"
@@ -46,6 +47,13 @@ func main() {
 		c2Command(os.Args[2:])
 	case "test":
 		runTests()
+	case "integration":
+		if len(os.Args) < 3 {
+			fmt.Println("Usage: nightfall integration <subcommand>")
+			return
+		}
+		// Use integration package
+		_ = integration.NewIntegrationManager(os.Args[2])
 	default:
 		fmt.Printf("Unknown command: %s\n", command)
 		printUsage()
